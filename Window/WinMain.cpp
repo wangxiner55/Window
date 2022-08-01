@@ -3,6 +3,7 @@
 
 
 
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -78,7 +79,7 @@ int CALLBACK WinMain(
 
 
 
-	Windows wnd(300, 300, L"sssss");
+	Windows wnd(300, 300, L"Xiner");
 	Windows wcd(200, 300, L"ssbs");
 
 	MSG msg;
@@ -87,6 +88,10 @@ int CALLBACK WinMain(
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+		if (wnd.Key.KeyIsPressed(VK_SPACE))
+		{
+			MessageBox(nullptr, L"Pressed", L"Pressed", MB_RIGHT);
+		}
 	}
 
 	if (gResult == -1)

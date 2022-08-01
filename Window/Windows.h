@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Exception.h"
+#include "Keyboard.h"
 
 
 
@@ -50,6 +51,10 @@ private:
 	static LRESULT CALLBACK HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK HandleMegThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	LRESULT HandleMeg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+
+public:
+	Keyboard Key;
+
 private:
 	int width;
 	int height;

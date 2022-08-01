@@ -95,7 +95,21 @@ LRESULT Windows::HandleMeg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
     case WM_CLOSE:
         PostQuitMessage(1001);
         return 0;
+
+
+     /*********KeyBoard Message**********/
+    case WM_KEYDOWN:
+        Key.OnKeyPressed(static_cast<unsigned char>(wParam));
+        break;
+    case WM_KEYUP:
+        Key.OnKeyReleased(static_cast<unsigned char>(wParam));
+        break;
+    case WM_CHAR:
+        Key.OnChar(static_cast<unsigned char>(wParam));
+        break;
     }
+    /*********KeyBoard Message**********/
+
 
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }

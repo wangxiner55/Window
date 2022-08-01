@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Windows.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>

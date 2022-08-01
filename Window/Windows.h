@@ -2,9 +2,27 @@
 #include <Windows.h>
 #include <iostream>
 #include <string>
+#include "Exception.h"
+
+
 
 class Windows
 {
+public:
+	class WindowException : public CatchException
+	{
+	public :
+		WindowException(int line, const char* file, HRESULT hr) noexcept;
+		const char* what() const noexcept override;
+		virtual const char* GetType() const noexcept;
+		static std::string TranslateErrorCode(HRESULT hr) noexcept;
+		HRESULT GetErrorCode() const noexcept;
+		std::string GetErrorSring() const noexcept;
+	private:
+		HRESULT hr;
+	};
+
+
 private:
 	class windowClass
 	{
@@ -38,3 +56,14 @@ private:
 	HWND hWnd;
 
 };
+
+
+
+
+
+
+
+
+
+
+#define CHWND_EXCEPT(hr) Windows::WindowException(_LINE_,_FILE_,hr)

@@ -1,4 +1,5 @@
 #include "Windows.h"
+#include "resource.h"
 
 
 Windows::windowClass Windows::windowClass::wndClass;
@@ -23,12 +24,12 @@ Windows::windowClass::windowClass() noexcept : hInst(GetModuleHandle(nullptr))
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = GetInstance();
-    wc.hIcon = nullptr;
+    wc.hIcon = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ICON2), IMAGE_ICON, 32, 32, 0));
     wc.hCursor = nullptr;
     wc.hbrBackground = nullptr;
     wc.lpszMenuName = nullptr;
     wc.lpszClassName = GetName();
-    wc.hIconSm = nullptr;
+    wc.hIconSm = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ICON2), IMAGE_ICON, 16, 16, 0));
     RegisterClassEx(&wc);
 
 }

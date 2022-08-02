@@ -4,6 +4,7 @@
 #include <string>
 #include "Exception.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 
 
 
@@ -54,6 +55,7 @@ private:
 
 public:
 	Keyboard Key;
+	Mouse mouse;
 
 private:
 	int width;

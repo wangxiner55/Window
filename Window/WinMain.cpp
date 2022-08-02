@@ -45,43 +45,8 @@ int CALLBACK WinMain(
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
-	/*const wchar_t pClassName[] = L"wxWindows";
-
-
-
-	WNDCLASSEX wc = {};
-	wc.cbSize = sizeof(wc);
-	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = WndProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = hInstance;
-	wc.hIcon = nullptr;
-	wc.hCursor = nullptr;
-	wc.hbrBackground = nullptr;
-	wc.lpszMenuName = nullptr;
-	wc.lpszClassName = pClassName;
-	wc.hIconSm = nullptr;
-	RegisterClassEx( &wc );
-
-
-
-
-	HWND hwnd = CreateWindowEx(
-		0, pClassName,
-		L"Learn Windows",
-		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
-		200, 200, 640, 480,
-		nullptr, nullptr, hInstance, nullptr
-	);
-
-	ShowWindow(hwnd, SW_SHOW);*/
-
-
 
 	Windows wnd(300, 300, L"Xiner");
-	Windows wcd(200, 300, L"ssbs");
-
 	MSG msg;
 	BOOL gResult;
 	while (gResult =  GetMessage(&msg, nullptr, 0, 0) > 0)

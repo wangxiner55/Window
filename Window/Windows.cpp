@@ -95,12 +95,16 @@ LRESULT Windows::HandleMeg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
     case WM_CLOSE:
         PostQuitMessage(1001);
         return 0;
-
+    case WM_KILLFOCUS:
+        Key.ClearState();
+        break;
 
      /*********KeyBoard Message**********/
     case WM_KEYDOWN:
-        Key.OnKeyPressed(static_cast<unsigned char>(wParam));
-        break;
+        if (!(lParam & 0x40000000) || Key.AutoreapectIsEnable())
+        {
+            Key.OnKeyPressed(static_cast<unsigned char>(wParam));
+        }break;
     case WM_KEYUP:
         Key.OnKeyReleased(static_cast<unsigned char>(wParam));
         break;

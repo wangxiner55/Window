@@ -88,9 +88,9 @@ int CALLBACK WinMain(
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-		if (wnd.Key.KeyIsPressed(VK_SPACE))
+		if (wnd.Key.KeyIsPressed(VK_MENU))
 		{
-			MessageBox(nullptr, L"Pressed", L"Pressed", MB_RIGHT);
+			MessageBox(nullptr, L"Pressed", L"Pressed", MB_OKCANCEL);
 		}
 	}
 

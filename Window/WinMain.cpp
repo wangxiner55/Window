@@ -1,9 +1,4 @@
 #include "App.h"
-#include <sstream>
-
-
-
-
 
 
 int CALLBACK WinMain(

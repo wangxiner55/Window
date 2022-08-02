@@ -7,7 +7,7 @@ int CALLBACK WinMain(
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
-
+	
 	return App{}.Start();
 
 }

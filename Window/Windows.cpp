@@ -65,6 +65,16 @@ Windows::~Windows()
     DestroyWindow(hWnd);
 }
 
+void Windows::SetWindowName(const std::string& name)
+{
+    SetWindowText(hWnd, tool.StringToWstring(name).c_str());
+}
+
+void Windows::SetWindowNameZN(const std::string& name)
+{
+    SetWindowText(hWnd, tool.StringToWstringZN(name).c_str());
+}
+
 LRESULT WINAPI Windows::HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (msg == WM_NCCREATE)

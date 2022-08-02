@@ -5,7 +5,8 @@
 #include "Exception.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-
+#include <sstream>
+#include "Tool.h"
 
 
 class Windows
@@ -47,6 +48,8 @@ public:
 	~Windows();
 	Windows(const Windows&) = delete;
 	Windows& operator = (const Windows&) = delete;
+	void SetWindowName(const std::string& name);
+	void SetWindowNameZN(const std::string& name);
 
 private:
 	static LRESULT CALLBACK HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -56,6 +59,7 @@ private:
 public:
 	Keyboard Key;
 	Mouse mouse;
+	Tool tool;
 
 private:
 	int width;
@@ -63,14 +67,6 @@ private:
 	HWND hWnd;
 
 };
-
-
-
-
-
-
-
-
 
 
 #define CHWND_EXCEPT(hr) Windows::WindowException(_LINE_,_FILE_,hr)

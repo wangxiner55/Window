@@ -13,20 +13,32 @@
 using namespace std;
 
 
-class U_Windows
+class WS_Windows
 {
 public:
-	class WindowException : public CatchException
+	class DefaultException : public CatchException
+	{
+		using CatchException::CatchException;
+	public:
+		static std::string TranslateErrorCode(HRESULT hr) noexcept;
+	};
+	class WindowException : public DefaultException
 	{
 	public :
 		WindowException(int line, const char* file, HRESULT hr) noexcept;
 		const char* what() const noexcept override;
 		virtual const char* GetType() const noexcept;
-		static std::string TranslateErrorCode(HRESULT hr) noexcept;
+		//static std::string TranslateErrorCode(HRESULT hr) noexcept;
 		HRESULT GetErrorCode() const noexcept;
-		std::string GetErrorSring() const noexcept;
+		std::string GetErrorDescription() const noexcept;
 	private:
 		HRESULT hr;
+	};
+	class NoGfxException : public DefaultException
+	{
+	public:
+		DefaultException::DefaultException;
+		const char* GetType() const noexcept override;
 	};
 
 
@@ -48,10 +60,10 @@ private:
 	};
 
 public:
-	U_Windows(int width, int height, const wchar_t* name) noexcept;
-	~U_Windows();
-	U_Windows(const U_Windows&) = delete;
-	U_Windows& operator = (const U_Windows&) = delete;
+	WS_Windows(int width, int height, const wchar_t* name) noexcept;
+	~WS_Windows();
+	WS_Windows(const WS_Windows&) = delete;
+	WS_Windows& operator = (const WS_Windows&) = delete;
 	void SetWindowName(const std::string& name);
 	void SetWindowNameZN(const std::string& name);
 	static std::optional<int> ProcessMessages();
@@ -77,4 +89,4 @@ private:
 };
 
 
-#define CHWND_EXCEPT(hr) U_Windows::WindowException(_LINE_,_FILE_,hr)
+#define CHWND_EXCEPT(hr) WS_Windows::WindowException(_LINE_,_FILE_,hr)

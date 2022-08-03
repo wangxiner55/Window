@@ -1,5 +1,5 @@
 #pragma once
-#include "U_Windows.h"
+#include "WS_Windows.h"
 #include "Timer.h"
 #include "Tool.h"
 
@@ -12,7 +12,7 @@ public:
 private:
 	void Tick();
 private:
-	U_Windows wnd;
+	WS_Windows wnd;
 	Timer time;
 	Tool tool;
 };

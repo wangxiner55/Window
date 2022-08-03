@@ -8,7 +8,7 @@ int App::Start()
 {
 	while (true)
 	{
-		if (const auto ecode = U_Windows::ProcessMessages())
+		if (const auto ecode = WS_Windows::ProcessMessages())
 		{
 			return *ecode;
 		}
@@ -20,18 +20,11 @@ int App::Start()
 
 void App::Tick()
 {
-	
-	/*const float t = time.Peek();
-	std::ostringstream oss;
-	oss << "time" << t << std::endl;*/
-	
+
 	const float c = sin(time.Peek()) / 2.0f + 0.5f;
-	wnd.Gfx().ClearBuffer(c, c, 1.0);
+	//wnd.Gfx().ClearBuffer(c, c, 0.0);
+	wnd.Gfx().Draw();
 	wnd.Gfx().EndFrame();
-
-
-
-
 
 
 }

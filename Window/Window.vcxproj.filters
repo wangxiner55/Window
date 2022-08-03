@@ -13,12 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{9ddf4560-97dc-40c5-ae79-f480a741c288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Head">
+      <UniqueIdentifier>{e0f8ef59-55c8-4c45-9f7e-606563a15273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Macros">
+      <UniqueIdentifier>{9898a658-6cd0-4dfa-8208-518e297e4f91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="U_Windows.cpp">
+    <ClCompile Include="WS_Windows.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Exception.cpp">
@@ -44,7 +53,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="U_Windows.h">
+    <ClInclude Include="WS_Windows.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exception.h">
@@ -71,6 +80,9 @@
     <ClInclude Include="Graphics.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="WindowsThrowMacros.h">
+      <Filter>Macros</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Window.rc">
@@ -84,5 +96,13 @@
     <Image Include="Icon\Desk.ico">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\VertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\PixelShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 
 class Mouse
 {
-	friend class U_Windows;
+	friend class WS_Windows;
 public:
 	class Event
 	{

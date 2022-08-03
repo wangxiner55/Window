@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 #include <iostream>
 #include <string>
 #include "Exception.h"
@@ -7,6 +6,11 @@
 #include "Mouse.h"
 #include <sstream>
 #include "Tool.h"
+#include <optional>
+#include "Graphics.h"
+#include <memory>
+
+using namespace std;
 
 
 class Windows
@@ -50,6 +54,9 @@ public:
 	Windows& operator = (const Windows&) = delete;
 	void SetWindowName(const std::string& name);
 	void SetWindowNameZN(const std::string& name);
+	static std::optional<int> ProcessMessages();
+	
+	Graphics& Gfx();
 
 private:
 	static LRESULT CALLBACK HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -65,7 +72,8 @@ private:
 	int width;
 	int height;
 	HWND hWnd;
-
+	unique_ptr<Graphics> pGfx;
+	
 };
 
 

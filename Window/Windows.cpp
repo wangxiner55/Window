@@ -57,6 +57,7 @@ Windows::Windows(int width, int height, const wchar_t* name) noexcept
 
     ShowWindow(hWnd, SW_SHOWDEFAULT);
 
+    pGfx = std::make_unique<Graphics>(hWnd);
 
 }
 
@@ -73,6 +74,29 @@ void Windows::SetWindowName(const std::string& name)
 void Windows::SetWindowNameZN(const std::string& name)
 {
     SetWindowText(hWnd, tool.StringToWstringZN(name).c_str());
+}
+
+std::optional<int> Windows::ProcessMessages()
+{
+    MSG msg;
+    while (PeekMessage(&msg, nullptr, 0, 0,PM_REMOVE))
+    {
+        if(msg.message == WM_QUIT)
+        {
+            return msg.wParam;
+        }
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+        
+
+        
+    }
+    return {};
+}
+
+Graphics& Windows::Gfx()
+{
+    return *pGfx;
 }
 
 LRESULT WINAPI Windows::HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)

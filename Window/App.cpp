@@ -6,27 +6,14 @@ App::App():wnd(800,800,L"Default Window")
 
 int App::Start()
 {
-	MSG msg;
-	BOOL gResult;
-	while (gResult = GetMessage(&msg, nullptr, 0, 0) > 0)
+	while (true)
 	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-		if (wnd.Key.KeyIsPressed(VK_MENU))
+		if (const auto ecode = Windows::ProcessMessages())
 		{
-			MessageBox(nullptr, L"Pressed", L"Pressed", MB_OKCANCEL);
+			return *ecode;
 		}
-		
-		Tick();
-	} 
 
-	if (gResult == -1)
-	{
-		return -1;
-	}
-	else
-	{
-		return msg.wParam;
+		Tick();
 	}
 
 }
@@ -34,10 +21,19 @@ int App::Start()
 void App::Tick()
 {
 	
-	const float t = time.Peek();
+	/*const float t = time.Peek();
 	std::ostringstream oss;
-	oss << "time" << t << std::endl;
-	wnd.SetWindowName(oss.str());
+	oss << "time" << t << std::endl;*/
+	
+	const float c = sin(time.Peek()) / 2.0f + 0.5f;
+	wnd.Gfx().ClearBuffer(c, c, 1.0);
+	wnd.Gfx().EndFrame();
+
+
+
+
+
+
 }
 
 

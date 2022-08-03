@@ -18,7 +18,7 @@
     <ClCompile Include="WinMain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Windows.cpp">
+    <ClCompile Include="U_Windows.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Exception.cpp">
@@ -44,7 +44,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Windows.h">
+    <ClInclude Include="U_Windows.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Exception.h">

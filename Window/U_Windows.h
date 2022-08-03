@@ -13,7 +13,7 @@
 using namespace std;
 
 
-class Windows
+class U_Windows
 {
 public:
 	class WindowException : public CatchException
@@ -48,10 +48,10 @@ private:
 	};
 
 public:
-	Windows(int width, int height, const wchar_t* name) noexcept;
-	~Windows();
-	Windows(const Windows&) = delete;
-	Windows& operator = (const Windows&) = delete;
+	U_Windows(int width, int height, const wchar_t* name) noexcept;
+	~U_Windows();
+	U_Windows(const U_Windows&) = delete;
+	U_Windows& operator = (const U_Windows&) = delete;
 	void SetWindowName(const std::string& name);
 	void SetWindowNameZN(const std::string& name);
 	static std::optional<int> ProcessMessages();
@@ -77,4 +77,4 @@ private:
 };
 
 
-#define CHWND_EXCEPT(hr) Windows::WindowException(_LINE_,_FILE_,hr)
+#define CHWND_EXCEPT(hr) U_Windows::WindowException(_LINE_,_FILE_,hr)

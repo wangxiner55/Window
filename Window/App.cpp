@@ -8,7 +8,7 @@ int App::Start()
 {
 	while (true)
 	{
-		if (const auto ecode = Windows::ProcessMessages())
+		if (const auto ecode = U_Windows::ProcessMessages())
 		{
 			return *ecode;
 		}

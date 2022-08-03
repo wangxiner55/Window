@@ -1,8 +1,5 @@
 #include "Graphics.h"
 
-
-
-
 Graphics::Graphics(HWND hWnd)
 {
 	DXGI_SWAP_CHAIN_DESC sd = {};
@@ -36,35 +33,17 @@ Graphics::Graphics(HWND hWnd)
 		nullptr,
 		&pContext
 	);
-	ID3D11Resource* pBackBuffer = nullptr;
-	pSwap->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer));
+	wrl::ComPtr<ID3D11Resource> pBackBuffer = nullptr;
+	   
+	pSwap->GetBuffer(0, __uuidof(ID3D11Resource),(&pBackBuffer));
 	pDevice->CreateRenderTargetView(
-		pBackBuffer,
+		pBackBuffer.Get(),
 		nullptr,
 		&pTarget
 	);
 	pBackBuffer->Release();
 }
 
-Graphics::~Graphics()
-{
-	if(pContext != nullptr)
-	{
-		pContext->Release();
-	}
-	if (pSwap != nullptr)
-	{
-		pContext->Release();
-	}
-	if (pDevice != nullptr)
-	{
-		pContext->Release();
-	}
-	if (pDevice != nullptr)
-	{
-		pTarget->Release();
-	}
-}
 
 void Graphics::EndFrame()
 {
@@ -74,5 +53,5 @@ void Graphics::EndFrame()
 void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 {
 	const float color[] = { red,green,blue,1.0f };
-	pContext->ClearRenderTargetView(pTarget, color);
+	pContext->ClearRenderTargetView(pTarget.Get(), color);
 }

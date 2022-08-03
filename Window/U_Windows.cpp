@@ -1,20 +1,20 @@
-#include "Windows.h"
+#include "U_Windows.h"
 #include "resource.h"
 
 
-Windows::windowClass Windows::windowClass::wndClass;
+U_Windows::windowClass U_Windows::windowClass::wndClass;
 
-const wchar_t* Windows::windowClass::GetName() noexcept
+const wchar_t* U_Windows::windowClass::GetName() noexcept
 {
     return wndClassName;
 }
 
-HINSTANCE Windows::windowClass::GetInstance() noexcept
+HINSTANCE U_Windows::windowClass::GetInstance() noexcept
 {
     return wndClass.hInst;
 }
 
-Windows::windowClass::windowClass() noexcept : hInst(GetModuleHandle(nullptr))
+U_Windows::windowClass::windowClass() noexcept : hInst(GetModuleHandle(nullptr))
 {
     WNDCLASSEX wc = {};
 
@@ -34,12 +34,12 @@ Windows::windowClass::windowClass() noexcept : hInst(GetModuleHandle(nullptr))
 
 }
 
-Windows::windowClass::~windowClass()
+U_Windows::windowClass::~windowClass()
 {
     UnregisterClass(wndClassName, GetInstance());
 }
 
-Windows::Windows(int width, int height, const wchar_t* name) noexcept
+U_Windows::U_Windows(int width, int height, const wchar_t* name) noexcept
 {
     RECT wr;
     wr.left = 100;
@@ -61,22 +61,22 @@ Windows::Windows(int width, int height, const wchar_t* name) noexcept
 
 }
 
-Windows::~Windows()
+U_Windows::~U_Windows()
 {
     DestroyWindow(hWnd);
 }
 
-void Windows::SetWindowName(const std::string& name)
+void U_Windows::SetWindowName(const std::string& name)
 {
     SetWindowText(hWnd, tool.StringToWstring(name).c_str());
 }
 
-void Windows::SetWindowNameZN(const std::string& name)
+void U_Windows::SetWindowNameZN(const std::string& name)
 {
     SetWindowText(hWnd, tool.StringToWstringZN(name).c_str());
 }
 
-std::optional<int> Windows::ProcessMessages()
+std::optional<int> U_Windows::ProcessMessages()
 {
     MSG msg;
     while (PeekMessage(&msg, nullptr, 0, 0,PM_REMOVE))
@@ -94,19 +94,19 @@ std::optional<int> Windows::ProcessMessages()
     return {};
 }
 
-Graphics& Windows::Gfx()
+Graphics& U_Windows::Gfx()
 {
     return *pGfx;
 }
 
-LRESULT WINAPI Windows::HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT WINAPI U_Windows::HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (msg == WM_NCCREATE)
     {
         const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(lParam);
-        Windows* const pWnd = static_cast<Windows*>(pCreate->lpCreateParams);
+        U_Windows* const pWnd = static_cast<U_Windows*>(pCreate->lpCreateParams);
         SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
-        SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Windows::HandleMegThunk));
+        SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&U_Windows::HandleMegThunk));
 
         return pWnd->HandleMeg(hWnd, msg, wParam, lParam);
 
@@ -115,9 +115,9 @@ LRESULT WINAPI Windows::HandleMegSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARA
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-LRESULT WINAPI Windows::HandleMegThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT WINAPI U_Windows::HandleMegThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    Windows* const pWnd = reinterpret_cast<Windows*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+    U_Windows* const pWnd = reinterpret_cast<U_Windows*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
     return pWnd->HandleMeg(hWnd, msg, wParam, lParam);
 }
@@ -127,7 +127,7 @@ LRESULT WINAPI Windows::HandleMegThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 
 
 
-LRESULT Windows::HandleMeg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+LRESULT U_Windows::HandleMeg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
     switch (msg)
     {
@@ -216,11 +216,11 @@ LRESULT Windows::HandleMeg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
 
 
 
-Windows::WindowException::WindowException(int line, const char* file, HRESULT hr) noexcept :CatchException(line, file), hr(hr)
+U_Windows::WindowException::WindowException(int line, const char* file, HRESULT hr) noexcept :CatchException(line, file), hr(hr)
 {
 }
 
-const char* Windows::WindowException::what() const noexcept
+const char* U_Windows::WindowException::what() const noexcept
 {
     std::ostringstream oss;
     oss << GetType() << std::endl << "[Error Code]" << GetErrorCode() << std::endl << "[Description]" << GetErrorSring() << std::endl << GetOriginString();
@@ -228,12 +228,12 @@ const char* Windows::WindowException::what() const noexcept
     return whatBuffer.c_str();
 }
 
-const char* Windows::WindowException::GetType() const noexcept
+const char* U_Windows::WindowException::GetType() const noexcept
 {
     return "Windows Error Exception";
 }
 
-std::string Windows::WindowException::TranslateErrorCode(HRESULT hr) noexcept
+std::string U_Windows::WindowException::TranslateErrorCode(HRESULT hr) noexcept
 {
     char* pMsgBuf = nullptr;
     DWORD nMsgBuf = FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
@@ -248,12 +248,12 @@ std::string Windows::WindowException::TranslateErrorCode(HRESULT hr) noexcept
     return errorString;
 }
 
-HRESULT Windows::WindowException::GetErrorCode() const noexcept
+HRESULT U_Windows::WindowException::GetErrorCode() const noexcept
 {
     return hr;
 }
 
-std::string Windows::WindowException::GetErrorSring() const noexcept
+std::string U_Windows::WindowException::GetErrorSring() const noexcept
 {
     return TranslateErrorCode(hr);
 }
